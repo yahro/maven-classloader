@@ -5,6 +5,9 @@ Given a [Maven] GAV, the Maven Classloader will resolve and download all depende
 
 This library utilizes [Sonatype Aether][2], the library used by Maven to deal with repositories. Aether does all of the heavy lifting, this library aims to be a lightweight shim on top of it to help reduce the friction for a majority of potential uses.
 
+[1]: http://maven.apache.org/ "Apache Maven"
+[2]: http://aether.sonatype.org/ "Sonatype Aether Product Page"
+
 ### Getting Started (Maven)
 
 Until this is put into a maven repo, download source and build a `.jar` with Maven: `mvn clean install`
@@ -25,5 +28,3 @@ You're done! Assuming you wanted the classloader for a reason, such as loading a
 
     Class<?> junitAssertClass = classLoader.loadClass("org.junit.Assert");
 
-[1]: http://maven.apache.org/ "Apache Maven"
-[2]: http://aether.sonatype.org/ "Sonatype Aether Product Page"
