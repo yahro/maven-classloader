@@ -29,4 +29,9 @@ public class MavenClassLoaderTest {
         assertNotNull(loader);
         loader.loadClass(Multiset.class.getName());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void classLoaderConstructionFailsOnBogusGAV() {
+        MavenClassLoader.forGAV("this isn't going to work!");
+    }
 }
