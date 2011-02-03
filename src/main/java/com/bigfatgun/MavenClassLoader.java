@@ -60,7 +60,7 @@ public final class MavenClassLoader {
                     urls.add(artifact.getFile().toURI().toURL());
                 }
                 URL[] urlArray = urls.toArray(new URL[urls.size()]);
-                return new URLClassLoader(urlArray);
+                return new URLClassLoader(urlArray, null);
             } catch (Exception e) {
                 if (e instanceof RuntimeException) {
                     throw (RuntimeException) e;
