@@ -35,14 +35,15 @@ public final class MavenClassLoader {
             this.localRepositoryDirectory = new File(".m2/repository");
         }
 
-        public ClassLoader forGAV(String gav) {
+        public URLClassLoader forGAV(String gav) {
             try {
                 Dependency dependency = new Dependency(new DefaultArtifact(gav), "compile");
-                RemoteRepository central = new RemoteRepository("central", "default", "http://repo1.maven.org/maven2/");
 
                 CollectRequest collectRequest = new CollectRequest();
                 collectRequest.setRoot(dependency);
-                collectRequest.addRepository(central);
+                for (RemoteRepository repository : repositories) {
+                    collectRequest.addRepository(repository);
+                }
 
                 RepositorySystem repositorySystem = newRepositorySystem();
                 RepositorySystemSession session = newSession(repositorySystem);
