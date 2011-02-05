@@ -14,6 +14,7 @@ end
 
 # ruby date
 ruby_now = Time.now
+# joda date
 joda_now = dateTime()
 
 puts "Ruby says it is #{ruby_now} and joda-time says it is #{joda_now}"
