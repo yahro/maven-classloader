@@ -50,17 +50,10 @@ public final class MavenClassLoader {
             try {
                 CollectRequest collectRequest = createCollectRequestForGAV(gav);
                 List<Artifact> artifacts = collectDependenciesIntoArtifacts(collectRequest);
-
-                List<URL> urls = Lists.transform(artifacts, new Function<Artifact, URL>() {
-                    @Override
-                    public URL apply(Artifact input) {
-                        try {
-                            return input.getFile().toURI().toURL();
-                        } catch (MalformedURLException e) {
-                            throw Throwables.propagate(e);
-                        }
-                    }
-                });
+                List<URL> urls = Lists.newLinkedList();
+                for (Artifact artifact : artifacts) {
+                    urls.add(artifact.getFile().toURI().toURL());
+                }
 
                 return new URLClassLoader(urls.toArray(new URL[urls.size()]), SHARE_NOTHING);
             } catch (Exception e) {
@@ -110,7 +103,7 @@ public final class MavenClassLoader {
     }
 
     /**
-     * Creates a classloader that will resolve artifacts against the default "central" repository. Throws 
+     * Creates a classloader that will resolve artifacts against the default "central" repository. Throws
      * {@link IllegalArgumentException} if the GAV is invalid, {@link NullPointerException} if the GAV is null.
      *
      * @param gav artifact group:artifact:version, i.e. joda-time:joda-time:1.6.2

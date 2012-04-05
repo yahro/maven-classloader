@@ -12,7 +12,7 @@ public class MavenClassLoaderTest {
 
     @Test
     public void jodaTime() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        String gav = "joda-time:joda-time:1.6.2";
+        String gav = "joda-time:joda-time:[1.6,)";
         String className = "org.joda.time.chrono.BuddhistChronology";
         ClassLoader loader = MavenClassLoader.forGAV(gav);
         assertNotNull(loader);
@@ -24,7 +24,7 @@ public class MavenClassLoaderTest {
 
     @Test(expected = ClassNotFoundException.class)
     public void jodaTimeClassLoaderDoesNotHaveMultiset() throws ClassNotFoundException {
-        String gav = "joda-time:joda-time:1.6.2";
+        String gav = "joda-time:joda-time:[1.6,)";
         ClassLoader loader = MavenClassLoader.forGAV(gav);
         assertNotNull(loader);
         loader.loadClass(Multiset.class.getName());
